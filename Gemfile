@@ -11,9 +11,8 @@ group :test do
   gem 'coveralls', require: false
   gem 'capybara'
   gem 'byebug'
-
+gem 'database_cleaner'
 gem 'data_mapper'
 gem 'dm-postgres-adapter'
 
 end
-
