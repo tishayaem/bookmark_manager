@@ -15,7 +15,7 @@ feature 'Signing in' do
 
  scenario 'if the password is wrong redirect to sign up page' do
    sign_up(password_confirmation: 'wrong')
-   expect(page).to have_content('Password and confirmation password do not match')
+   expect(page).to have_content('Password does not match the confirmation')
 
  end
 
@@ -31,4 +31,8 @@ feature 'Signing in' do
   #  expect(page).to have_content("Please enter your email address in the email field.")
  end
 
+ scenario 'if the user enters already taken email address' do
+   sign_up(email: "reri.kdkd")
+   expect { sign_up(email: "reri.kdkd") }.not_to change(User, :count)
+  end
 end

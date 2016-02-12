@@ -39,33 +39,34 @@ end
       end
       link.save
       redirect to('/links')
-end
+  end
   get '/tags/:name' do
-  tag = Tag.first(name: params[:name])
-  @links = tag ? tag.links : []
-  erb :'links/index'
-end
+    tag = Tag.first(name: params[:name])
+    @links = tag ? tag.links : []
+    erb :'links/index'
+  end
 
-get '/users/new' do
-  @user = User.new
-  erb :'users/new'
-end
+  get '/users/new' do
+    @user = User.new
+    erb :'users/new'
+  end
 
-get '/users' do
-  User.create(email: params[:email], password: params[:password])
-  redirect to('/links')
-end
+  get '/users' do
+    User.create(email: params[:email], password: params[:password])
+    redirect to('/links')
+  end
 
-post '/users' do
-  @user = User.create(email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
-if @user.save
-  session[:user_id] = @user.id
-  redirect to('/links')
-else
-  flash.now[:notice] = "Password and confirmation password do not match"
-  erb :'users/new'
-end
-end
+  post '/users' do
+    @user = User.create(email: params[:email], password: params[:password],
+    password_confirmation: params[:password_confirmation])
+    if @user.save
+      session[:user_id] = @user.id
+      redirect to('/links')
+    else
+      flash.now[:errors] = @user.errors.full_messages
+      erb :'users/new'
+    end
+  end
 
   # start the server if ruby file executed directly
   run! if app_file == $0
