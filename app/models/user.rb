@@ -1,4 +1,6 @@
 require 'bcrypt'
+require_relative '../data_mapper_setup.rb'
+require 'dm-validations'
 
 class User
   include DataMapper::Resource
@@ -10,13 +12,12 @@ class User
 
   attr_reader :password
   attr_accessor :password_confirmation
+  validates_confirmation_of :password
 
   def password=(password)
     @password = password
     self.password_digest = BCrypt::Password.create(password)
-    validates_confirmation_of :password
-
-  end
+    end
 
 
 end
