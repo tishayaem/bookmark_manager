@@ -1,9 +1,11 @@
+ENV['RACK_ENV'] ||= 'development'
+
 require 'sinatra/base'
 require_relative 'data_mapper_setup'
 require 'sinatra/flash'
 
 
-ENV['RACK_ENV'] ||= 'development'
+
 
 class Bookmark < Sinatra::Base
   enable :sessions
@@ -45,6 +47,7 @@ end
 end
 
 get '/users/new' do
+  @user = User.new
   erb :'users/new'
 end
 
