@@ -22,7 +22,13 @@ feature 'Signing in' do
  scenario 'if the user does not complete the email field.' do
    expect { sign_up(email: " ") }.not_to change(User, :count)
    sign_up(email: nil)
-   expect(page).to have_content("Please enter your email address in the email field.")
+  #  expect(page).to have_content("Please enter your email address in the email field.")
+ end
+
+ scenario 'if the user does not enter a valid email address' do
+   expect { sign_up(email: "reri.kdkd") }.not_to change(User, :count)
+   sign_up(email: 'reri.kdkd')
+  #  expect(page).to have_content("Please enter your email address in the email field.")
  end
 
 end
